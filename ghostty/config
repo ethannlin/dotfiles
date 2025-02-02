@@ -1,0 +1,38 @@
+theme = catppuccin-frappe
+font-family = MesoLGL Nerd Font Mono
+font-size = 18
+adjust-cursor-thickness = 1
+
+clipboard-read = allow
+clipboard-write = allow
+window-save-state = always
+
+working-directory=/Users/ethanlin/Desktop
+shell-integration-features = no-cursor,no-title
+cursor-style = block
+macos-titlebar-proxy-icon = hidden
+mouse-scroll-multiplier = 2
+mouse-hide-while-typing = true
+title = " "
+macos-icon = official
+
+# keybindings
+keybind = cmd+s>r=reload_config
+keybind = cmd+s>x=close_surface
+
+keybind = cmd+s>n=new_window
+
+# split
+keybind = cmd+s>\=new_split:right
+keybind = cmd+s>-=new_split:down
+
+keybind = cmd+s>j=goto_split:bottom
+keybind = cmd+s>k=goto_split:top
+keybind = cmd+s>h=goto_split:left
+keybind = cmd+s>l=goto_split:right
+
+keybind = cmd+s>z=toggle_split_zoom
+
+keybind = cmd+s>e=equalize_splits
+
+copy-on-select = clipboard
