@@ -16,23 +16,24 @@ mouse-hide-while-typing = true
 title = " "
 macos-icon = official
 
-# keybindings
-keybind = cmd+s>r=reload_config
-keybind = cmd+s>x=close_surface
+# Similar Tmux but with Ghostty
+# (ctrl b for tmux -> cmb b for ghostty)
+keybind = super+b>r=reload_config
+keybind = super+b>x=close_surface
+# this only works if you have `macos-titlebar-style = tabs or native or transparent`
+# else it behaves like new window
+keybind = super+b>c=new_tab 
+keybind = super+b>n=new_window
 
-keybind = cmd+s>n=new_window
+# splitting
+keybind = super+b>\=new_split:right
+keybind = super+b>-=new_split:down
+keybind = super+b>e=equalize_splits
 
-# split
-keybind = cmd+s>\=new_split:right
-keybind = cmd+s>-=new_split:down
-
-keybind = cmd+s>j=goto_split:bottom
-keybind = cmd+s>k=goto_split:top
-keybind = cmd+s>h=goto_split:left
-keybind = cmd+s>l=goto_split:right
-
-keybind = cmd+s>z=toggle_split_zoom
-
-keybind = cmd+s>e=equalize_splits
+# split nav (setting this to control will not work if tmux already uses it)
+keybind = super+b>h=goto_split:left
+keybind = super+b>j=goto_split:bottom
+keybind = super+b>k=goto_split:top
+keybind = super+b>l=goto_split:right
 
 copy-on-select = clipboard
