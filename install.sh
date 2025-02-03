@@ -1,11 +1,12 @@
 #!/bin/bash
 
 CONFIG_DIR="$HOME/.config"
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$HOME/Desktop/dotfiles"
 
 # create all necessary directories
 echo "Creating config directories..."
 mkdir -p "$CONFIG_DIR/ghostty"
+mkdir -p "$CONFIG_DIR/sketchybar"
 
 # check if dotfiles directory exists
 if [ ! -d "$DOTFILES_DIR" ]; then
@@ -21,6 +22,8 @@ links=(
     "tmux/.tmux.conf:$HOME/.tmux.conf"
     "ghostty/config:$CONFIG_DIR/ghostty/config"
     "starship/starship.toml:$CONFIG_DIR/starship.toml"
+    "zsh/.zshrc:$HOME/.zshrc",
+    "sketchybar:$CONFIG_DIR/sketchybar"
 )
 
 # create each symlink

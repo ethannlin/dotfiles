@@ -7,10 +7,15 @@ clipboard-read = allow
 clipboard-write = allow
 window-save-state = always
 
-working-directory=/Users/ethanlin/Desktop
+auto-update = check
+auto-update-channel = stable
+
 shell-integration-features = no-cursor,no-title
 cursor-style = block
+
+macos-option-as-alt = true
 macos-titlebar-proxy-icon = hidden
+
 mouse-scroll-multiplier = 2
 mouse-hide-while-typing = true
 title = " "
@@ -22,7 +27,7 @@ keybind = super+b>r=reload_config
 keybind = super+b>x=close_surface
 # this only works if you have `macos-titlebar-style = tabs or native or transparent`
 # else it behaves like new window
-keybind = super+b>c=new_tab 
+keybind = super+b>c=new_tab
 keybind = super+b>n=new_window
 
 # splitting
