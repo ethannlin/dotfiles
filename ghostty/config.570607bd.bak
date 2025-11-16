@@ -73,4 +73,3 @@ keybind = super+shift+up=resize_split:up,10
 keybind = super+shift+right=resize_split:right,10
 
 copy-on-select = clipboard
-keybind = shift+enter=text:\n
