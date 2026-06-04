@@ -40,6 +40,13 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
+# --- tmux plugin manager --------------------------------------------------
+# .tmux.conf loads TPM from ~/.tmux/plugins/tpm and lists plugins it manages.
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    echo "Installing tmux plugin manager (tpm)..."
+    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
 # --- config directories ---------------------------------------------------
 echo "Creating config directories..."
 mkdir -p "$CONFIG_DIR/ghostty"
@@ -74,6 +81,11 @@ for link in "${links[@]}"; do
     ln -sf "$DOTFILES_DIR/$src" "$dst"
     echo "Linked: $src -> $dst"
 done
+
+# install tmux plugins non-interactively now that .tmux.conf is linked
+if [ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
+    "$HOME/.tmux/plugins/tpm/bin/install_plugins" || true
+fi
 
 echo ""
 echo "Dotfiles installation complete."

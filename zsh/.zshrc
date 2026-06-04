@@ -109,7 +109,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export SSL_CERT_FILE=/Users/ethanlin/miniconda3/ssl/cacert.pem
+# Only set if miniconda's CA bundle exists (avoids breaking SSL on machines without it)
+[ -f "$HOME/miniconda3/ssl/cacert.pem" ] && export SSL_CERT_FILE="$HOME/miniconda3/ssl/cacert.pem"
 
 eval "$(starship init zsh)"
 
