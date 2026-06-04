@@ -17,7 +17,7 @@ fi
 
 echo "Installing dependencies..."
 brew tap FelixKratz/formulae   # provides 'borders' (JankyBorders)
-brew install starship tmux borders
+brew install starship borders
 brew install --cask aerospace ghostty
 
 # fonts used by ghostty / the prompt
@@ -41,13 +41,6 @@ if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
     git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 fi
 
-# --- tmux plugin manager --------------------------------------------------
-# .tmux.conf loads TPM from ~/.tmux/plugins/tpm and lists plugins it manages.
-if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
-    echo "Installing tmux plugin manager (tpm)..."
-    git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
-fi
-
 # --- config directories ---------------------------------------------------
 echo "Creating config directories..."
 mkdir -p "$CONFIG_DIR/ghostty"
@@ -56,7 +49,6 @@ mkdir -p "$CONFIG_DIR/aerospace"
 # --- symlinks (source-in-repo : destination) ------------------------------
 # Everything is symlinked so edits stay in-repo and sync via git.
 links=(
-    "tmux/.tmux.conf:$HOME/.tmux.conf"
     "zsh/.zshrc:$HOME/.zshrc"
     "ghostty/config:$CONFIG_DIR/ghostty/config"
     "starship/starship.toml:$CONFIG_DIR/starship.toml"
@@ -82,11 +74,6 @@ for link in "${links[@]}"; do
     ln -sf "$DOTFILES_DIR/$src" "$dst"
     echo "Linked: $src -> $dst"
 done
-
-# install tmux plugins non-interactively now that .tmux.conf is linked
-if [ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
-    "$HOME/.tmux/plugins/tpm/bin/install_plugins" || true
-fi
 
 echo ""
 echo "Dotfiles installation complete."
