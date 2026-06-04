@@ -1,11 +1,10 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Aliases for common dirs
-alias home="cd ~"
-
-# System Aliases
-alias ..="cd .."
+# Aliases
+alias reload="source ~/.zshrc"        # re-apply this file after editing it
+alias ssh="TERM=xterm-256color ssh"   # render colors correctly in remote ssh sessions
+# Note: .. ... .... etc. (go up N dirs) are provided automatically by oh-my-zsh.
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -97,23 +96,37 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
 # Only set if miniconda's CA bundle exists (avoids breaking SSL on machines without it)
 [ -f "$HOME/miniconda3/ssl/cacert.pem" ] && export SSL_CERT_FILE="$HOME/miniconda3/ssl/cacert.pem"
 
 eval "$(starship init zsh)"
 
-alias ssh="TERM=xterm-256color ssh"
+# Load local env (cargo, uv, etc.) if present
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 
-cd ~/Desktop
+# pnpm
+export PNPM_HOME="/Users/ethanlin/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/ethanlin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/ethanlin/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/ethanlin/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/ethanlin/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
