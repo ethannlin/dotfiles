@@ -16,6 +16,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 echo "Installing dependencies..."
+brew tap FelixKratz/formulae   # provides 'borders' (JankyBorders)
 brew install starship tmux borders
 brew install --cask aerospace ghostty
 
