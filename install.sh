@@ -34,7 +34,7 @@ fi
 echo "Installing dependencies..."
 run brew tap FelixKratz/formulae   # provides 'borders' (JankyBorders)
 run brew install starship borders
-run brew install --cask aerospace ghostty
+run brew install --cask nikitabobko/tap/aerospace ghostty
 
 # fonts used by ghostty / the prompt
 run brew install --cask font-sf-mono font-sf-pro font-meslo-lg-nerd-font
