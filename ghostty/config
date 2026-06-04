@@ -28,10 +28,12 @@ font-size = 18
 adjust-cursor-thickness = 1
 
 working-directory = home
+window-inherit-working-directory = true
 
 clipboard-read = allow
 clipboard-write = allow
-window-save-state = always
+# Start fresh on relaunch instead of restoring the last clean-exit session.
+window-save-state = never
 
 auto-update = check
 auto-update-channel = stable

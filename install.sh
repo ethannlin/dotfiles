@@ -1,42 +1,63 @@
 #!/bin/bash
+set -euo pipefail
 
 CONFIG_DIR="$HOME/.config"
 DOTFILES_DIR="$HOME/Desktop/dotfiles"
 
-# create all necessary directories
-echo "Creating config directories..."
-mkdir -p "$CONFIG_DIR/ghostty"
-mkdir -p "$CONFIG_DIR/sketchybar"
-
-# check if dotfiles directory exists
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "Error: Dotfiles directory not found at $DOTFILES_DIR"
     exit 1
 fi
 
-# create symbolic links and check for success
-echo "Creating symbolic links..."
+# --- dependencies ---------------------------------------------------------
+if ! command -v brew >/dev/null 2>&1; then
+    echo "Error: Homebrew not found. Install it from https://brew.sh first."
+    exit 1
+fi
 
-# array of files to link (source:destination)
+echo "Installing dependencies..."
+brew install starship tmux borders
+brew install --cask aerospace ghostty
+
+# fonts used by ghostty / the prompt
+brew install --cask font-sf-mono font-sf-pro font-meslo-lg-nerd-font
+
+# --- config directories ---------------------------------------------------
+echo "Creating config directories..."
+mkdir -p "$CONFIG_DIR/ghostty"
+mkdir -p "$CONFIG_DIR/aerospace"
+
+# --- symlinks (source-in-repo : destination) ------------------------------
+# Everything is symlinked so edits stay in-repo and sync via git.
 links=(
     "tmux/.tmux.conf:$HOME/.tmux.conf"
+    "zsh/.zshrc:$HOME/.zshrc"
     "ghostty/config:$CONFIG_DIR/ghostty/config"
     "starship/starship.toml:$CONFIG_DIR/starship.toml"
-    "zsh/.zshrc:$HOME/.zshrc",
-    "sketchybar:$CONFIG_DIR/sketchybar"
+    "aerospace/aerospace.toml:$CONFIG_DIR/aerospace/aerospace.toml"
 )
 
-# create each symlink
+echo "Creating symbolic links..."
 for link in "${links[@]}"; do
     src="${link%%:*}"
     dst="${link#*:}"
-    
-    if [ ! -f "$DOTFILES_DIR/$src" ]; then
-        echo "Warning: Source file not found: $DOTFILES_DIR/$src"
+
+    if [ ! -e "$DOTFILES_DIR/$src" ]; then
+        echo "Warning: source not found, skipping: $DOTFILES_DIR/$src"
         continue
     fi
 
-    ln -sf "$DOTFILES_DIR/$src" "$dst" && echo "Linked: $src → $dst"
+    # back up an existing real file/dir (not an existing symlink) before relinking
+    if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+        mv "$dst" "$dst.backup"
+        echo "Backed up existing $dst -> $dst.backup"
+    fi
+
+    ln -sf "$DOTFILES_DIR/$src" "$dst"
+    echo "Linked: $src -> $dst"
 done
 
-echo "Dotfiles installation complete!"
+echo ""
+echo "Dotfiles installation complete."
+echo "Note: borders is launched by AeroSpace (after-startup-command in aerospace.toml)."
+echo "Restart your terminal, then start AeroSpace to apply everything."
