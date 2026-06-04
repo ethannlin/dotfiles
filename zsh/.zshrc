@@ -115,17 +115,4 @@ eval "$(starship init zsh)"
 
 alias ssh="TERM=xterm-256color ssh"
 
-# Sketchybar interactivity overloads
-function brew() {
-  command brew "$@" 
-
-  if [[ $* =~ "upgrade" ]] || [[ $* =~ "update" ]] || [[ $* =~ "outdated" ]]; then
-    sketchybar --trigger brew_update
-  fi
-}
-
-function zen () {
-  ~/.config/sketchybar/plugins/zen.sh $1
-}
-
 cd ~/Desktop

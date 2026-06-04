@@ -25,7 +25,6 @@ sync_configs() {
     mkdir -p "$DOTFILES_REPO/ghostty"
     mkdir -p "$DOTFILES_REPO/starship"
     mkdir -p "$DOTFILES_REPO/zsh"
-    mkdir -p "$DOTFILES_REPO/sketchybar"
     mkdir -p "$DOTFILES_REPO/aerospace"
     # add more directories as needed
 
@@ -53,15 +52,9 @@ sync_configs() {
         print_status "Synced zsh config"
     fi
 
-    # Sync sketchybar config
-    if [ -d "$CONFIG_DIR/sketchybar" ]; then
-        cp -r "$CONFIG_DIR/sketchybar/"* "$DOTFILES_REPO/sketchybar/"
-        print_status "Synced sketchybar config"
-    fi
-
     # Sync aerospace config
-    if [ -d "$CONFIG_DIR/aerospace" ]; then
-        cp -r "$CONFIG_DIR/aerospace/"* "$DOTFILES_REPO/aerospace/"
+    if [ -f "$CONFIG_DIR/aerospace/aerospace.toml" ]; then
+        cp "$CONFIG_DIR/aerospace/aerospace.toml" "$DOTFILES_REPO/aerospace/aerospace.toml"
         print_status "Synced aerospace config"
     fi
 

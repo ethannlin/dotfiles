@@ -22,6 +22,24 @@ brew install --cask aerospace ghostty
 # fonts used by ghostty / the prompt
 brew install --cask font-sf-mono font-sf-pro font-meslo-lg-nerd-font
 
+# --- oh-my-zsh + external plugins -----------------------------------------
+# .zshrc assumes oh-my-zsh plus two external plugins (zsh-autosuggestions,
+# zsh-syntax-highlighting). Install unattended so it doesn't switch shells or
+# clobber our symlinked .zshrc (the symlink step below overrides omz's default).
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Installing oh-my-zsh..."
+    RUNZSH=no KEEP_ZSHRC=yes \
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+if [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
+fi
+
 # --- config directories ---------------------------------------------------
 echo "Creating config directories..."
 mkdir -p "$CONFIG_DIR/ghostty"
