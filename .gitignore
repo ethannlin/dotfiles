@@ -1,1 +1,26 @@
+# OS cruft
 .DS_Store
+
+# Secrets / credentials — NEVER commit these
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa
+id_ed25519
+*.ppk
+.netrc
+.npmrc
+.pypirc
+*.secret
+*secrets*
+*credentials*
+
+# Local backups created by install.sh / editors
+*.bak
+*.backup
+*.swp
+*~
