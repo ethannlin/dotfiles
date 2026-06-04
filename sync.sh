@@ -21,18 +21,11 @@ print_warning() {
 # function to sync config files
 sync_configs() {
     # create directories if they don't exist
-    mkdir -p "$DOTFILES_REPO/tmux"
     mkdir -p "$DOTFILES_REPO/ghostty"
     mkdir -p "$DOTFILES_REPO/starship"
     mkdir -p "$DOTFILES_REPO/zsh"
     mkdir -p "$DOTFILES_REPO/aerospace"
     # add more directories as needed
-
-    # sync tmux config
-    if [ -f "$HOME/.tmux.conf" ]; then
-        cp "$HOME/.tmux.conf" "$DOTFILES_REPO/tmux/.tmux.conf"
-        print_status "Synced tmux config"
-    fi
 
     # sync ghostty config
     if [ -f "$CONFIG_DIR/ghostty/config" ]; then
